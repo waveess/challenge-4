@@ -1,3 +1,4 @@
+// questions 
 const questions = [
     {
     question: "Commonly used data types to NOT include:",
@@ -22,8 +23,8 @@ const questions = [
     answers: [
         { text: "Numbers and strings", correct: false },
         { text: "Other arrays", correct: false },
-        { text: "Booleans", correct: true },
-        { text: "All of the above", correct: false }
+        { text: "Booleans", correct: false },
+        { text: "All of the above", correct: true}
     ]
     },
     {   
@@ -52,35 +53,30 @@ const startScreen = document.getElementById('start-screen');
 const questionsContainer = document.getElementById('question-container');
 const questionsEl = document.getElementById('question')
 const answerButton = document.getElementById('choices')
+const endScreen = document.getElementById('end-screen')
 
 let score = 0 
 let randomQuestions 
 let setQuestions = 0
-let time = 60
 
 startButton.addEventListener('click', startQuiz)
 
-// // start quiz
-//  var t = 75;
-//  var counter = 0;
-//  console.log(t);
-//  t--;
-
-function timer () {
-    
-    let interval = setInterval(function (){
-        document.querySelector('#time').innerHTML = time
-        if (time <= 60){
-            time -= 1
-        } else {
-            clearInterval(interval);
-            highscores()
+// start timer
+var count = document.querySelector("#time");
+    function timer () {
+        count.textContent = 60;
+        var timer = setInterval(function() {
+            if(count.textContent > 0) {
+                count.textContent -= 1 }
+                else {clearInterval(timer);}
+            }
+            , 2000)
         }
-    }, 1000)
-}
+    
 
-function startQuiz() {
-    //resetAnswers ();
+
+// start quiz 
+function startQuiz(timer) {
     console.log("started")
     startButton.remove()
     startScreen.remove()
@@ -92,11 +88,12 @@ function startQuiz() {
 function generateQuestion() {
     nextQuestion (randomQuestions[setQuestions]);
     setQuestions++
-    if (setQuestions == 1) {
+    if (setQuestions <= 4) {
         timer()
-    }
+    } else (setQuestions = 0) [
+        endQuiz()
+    ]
 }
-
 
 
 function nextQuestion (question) {
@@ -114,19 +111,22 @@ function nextQuestion (question) {
 
     
     document.querySelector("#question").textContent = question.question;
+
     // text for buttons
     document.querySelector(".btn1").textContent = "1. " + question.answers[array[0]].text
     document.querySelector(".btn2").textContent = "2. " + question.answers[array[1]].text
     document.querySelector(".btn3").textContent = "3. " + question.answers[array[2]].text
     document.querySelector(".btn4").textContent = "4. " + question.answers[array[3]].text
-
-
+   
+    
+var score = "1";
     //event listeners
     document.querySelector(`.btn1`).addEventListener("click", function(){
             console.log(question.answers[0].text)
            
+            // if (question[1].answer[1].correct) score += 1
             if (question.answers[array[0]].correct) {                
-                score+=1;
+                score;
                 success()
             } else {
                 failure()
@@ -135,56 +135,78 @@ function nextQuestion (question) {
             startQuiz()
         })
 
-        document.querySelector(`.btn2`).addEventListener("click", function(){
-            console.log("hi")
-            // if (question[1].answer[1].correct) score += 1
+    document.querySelector(`.btn2`).addEventListener("click", function(){
+            console.log(question.answers[1].text)
+            
             if (question.answers[array[1]].correct) {
                 score+=1;
-
+                success()
             } else {
-
+                failure()
             }
+
             startQuiz()
+           
         })
 
-        document.querySelector(`.btn3`).addEventListener("click", function(){
-            console.log("hi")
+    document.querySelector(`.btn3`).addEventListener("click", function(){
+            console.log(question.answers[2].text)
+
             if (question.answers[array[2]].correct) {
                 score+=1;
-
+                success()
             } else {
-
+                failure()
             }
+
             startQuiz()
+           
         })
 
-        document.querySelector(`.btn4`).addEventListener("click", function(){
-            console.log("hi")
+    document.querySelector(`.btn4`).addEventListener("click", function(){
+            console.log(question.answers[3].text)
             if (question.answers[array[3]].correct) {
                 score+=1;
-
+                success()
             } else {
-
+                failure()
             }
+
             startQuiz()
+        
         })
     
 
 }
 
 function success () {
-    var pTag =createElement("p")
-    pTag.textContent = "You got it bro"
-    document.querySelector("body").appendChild(pTag)
-    setTimeout(6000)
+    var correct = document.createElement("p")
+    correct.textContent = "Correct!"
+    document.querySelector("#choices").appendChild(correct)
+    setTimeout(correct, 2000);
+    
+    
 }
 
 function failure () {
-
+    var wrong = document.createElement("p")
+    wrong.textContent = "Wrong!"  
+    document.querySelector("#choices").appendChild(wrong)
+    if (wrong.textContent = "Wrong!") {
+        timer -= 10
+    }
 }
 
 
 
 function highscores () {
+    document.querySelector('.scores').innerHTML = highscores
+}
 
+function endQuiz () {
+    startButton.remove()
+    startScreen.remove()
+    questionsContainer.remove()
+    endScreen.classList.remove('hide');
+    
 }

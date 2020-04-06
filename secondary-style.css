@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.h1 {
+    font-size: 32px;
+    text-align: center;
+    color: rgb(192, 3, 192);
+}
+
+.p {
+    font-size: 18px;
+    margin: 10px auto;
+    padding: auto;
+}
+#highScoresList {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 4rem;
+}
+.high-score {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
